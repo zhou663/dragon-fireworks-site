@@ -4,47 +4,52 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dragon Fireworks – Greensburg, IN</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cinzel+Decorative:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ── BRAND PALETTE (extracted from store name logo) ── */
     :root {
-      --red:    #8B1A1A;
-      --red2:   #B22222;
-      --gold:   #F5A800;
-      --gold2:  #FFD040;
-      --usblue: #1B2F6E;
-      --white:  #FFFFFF;
-      --dark:   #111111;
-      --offwhite: #FDF8EE;
+      --crimson:   #7A1010;   /* dragon badge red */
+      --crimson2:  #9B1515;   /* lighter red for hovers */
+      --ember:     #C8830A;   /* text shadow/base gold */
+      --sunfire:   #F0A010;   /* main logo gold */
+      --crown:     #F5C030;   /* bright highlight yellow */
+      --forge:     #0D0808;   /* near-black background */
+      --forge2:    #1C0A0A;   /* slightly lighter dark */
+      --parchment: #FFF8F0;   /* warm cream — matches logo bg */
+      --text:      #F5E8D0;   /* warm body text */
+      --usblue:    #1B2F6E;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Open Sans', sans-serif;
-      background: var(--dark);
-      color: var(--white);
+      background: var(--forge);
+      color: var(--text);
       overflow-x: hidden;
     }
 
-    /* ── STARS BACKGROUND ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 30% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 55% 20%, rgba(255,255,255,0.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 75% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
-        radial-gradient(1px 1px at 90% 10%, rgba(255,255,255,0.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 20% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 65% 85%, rgba(255,255,255,0.3) 0%, transparent 100%),
-        radial-gradient(1px 1px at 45% 55%, rgba(255,255,255,0.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 85% 35%, rgba(255,255,255,0.4) 0%, transparent 100%);
-      pointer-events: none;
-      z-index: 0;
+    /* ── FIRE BAND — signature element between sections ── */
+    .fire-band {
+      height: 4px;
+      background: linear-gradient(90deg,
+        var(--crimson) 0%,
+        var(--ember) 25%,
+        var(--crown) 50%,
+        var(--ember) 75%,
+        var(--crimson) 100%
+      );
+      flex-shrink: 0;
+    }
+
+    /* ── GOLD GRADIENT TEXT ── */
+    .gold-text {
+      background: linear-gradient(180deg, var(--crown) 0%, var(--sunfire) 50%, var(--ember) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     /* ── NAV ── */
@@ -55,110 +60,82 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 32px;
-      background: rgba(17,17,17,0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 2px solid var(--gold);
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      padding: 10px 36px;
+      background: rgba(13, 8, 8, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 3px solid var(--ember);
     }
 
     .nav-logo img {
-      height: 44px;
+      height: 40px;
       width: auto;
-    }
-
-    .nav-brand {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      color: var(--gold);
-      letter-spacing: 0.05em;
-      line-height: 1.2;
     }
 
     .nav-links {
       display: flex;
-      gap: 28px;
+      gap: 32px;
       list-style: none;
     }
 
     .nav-links a {
-      color: var(--offwhite);
+      color: var(--text);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover { color: var(--crown); }
 
     /* ── HERO ── */
-    .hero {
-      position: relative;
-      min-height: 100vh;
+    /* Cream zone for the store name banner, transitions to dark */
+    .hero-cream {
+      padding: 84px 0 0;
+      background: var(--parchment);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+    }
+
+    .hero-banner {
+      width: min(680px, 88vw);
+      display: block;
+      margin: 48px auto 40px;
+    }
+
+    /* Gradient transition cream → forge */
+    .hero-transition {
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(to bottom, var(--parchment) 0%, var(--forge2) 100%);
+    }
+
+    .hero-dark {
+      background: var(--forge2);
       text-align: center;
-      padding: 120px 24px 80px;
-      overflow: hidden;
-      z-index: 1;
+      padding: 0 24px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    /* Firework burst SVG decorations */
-    .burst {
-      position: absolute;
-      pointer-events: none;
-      opacity: 0.18;
-    }
-    .burst-1 { top: 8%; left: 5%; width: 220px; }
-    .burst-2 { top: 12%; right: 4%; width: 180px; }
-    .burst-3 { bottom: 15%; left: 2%; width: 150px; }
-    .burst-4 { bottom: 10%; right: 6%; width: 200px; }
-
-    /* USA stripe ribbon at top of hero */
-    .usa-stripe {
-      position: absolute;
-      top: 64px;
-      left: 0; right: 0;
-      height: 6px;
-      background: linear-gradient(90deg,
-        var(--red2) 0%, var(--red2) 33%,
-        var(--white) 33%, var(--white) 66%,
-        var(--usblue) 66%, var(--usblue) 100%
-      );
-    }
-
-    .hero-logo {
-      width: min(420px, 80vw);
-      margin-bottom: 32px;
-      filter: drop-shadow(0 0 24px rgba(245,168,0,0.4));
-    }
-
-    .hero h1 {
+    .hero-dark .tagline {
       font-family: 'Cinzel', serif;
-      font-size: clamp(2rem, 6vw, 4rem);
-      font-weight: 900;
-      color: var(--gold);
-      text-shadow: 0 0 40px rgba(245,168,0,0.5), 2px 2px 0 var(--red);
-      line-height: 1.1;
-      margin-bottom: 16px;
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 20px;
     }
 
-    .hero-sub {
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
-      color: var(--offwhite);
-      max-width: 560px;
-      margin: 0 auto 36px;
-      opacity: 0.9;
-      line-height: 1.6;
+    .hero-dark .sub {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: rgba(245, 232, 208, 0.75);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 36px;
     }
 
     .hero-cta {
@@ -168,101 +145,357 @@
       justify-content: center;
     }
 
+    /* ── BUTTONS ── */
     .btn {
       display: inline-block;
-      padding: 14px 32px;
-      border-radius: 4px;
+      padding: 13px 30px;
+      border-radius: 2px;
       font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: 0.06em;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       text-decoration: none;
-      transition: transform 0.15s, box-shadow 0.15s;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
       cursor: pointer;
+      border: none;
     }
 
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.45); }
+
+    .btn-fire {
+      background: linear-gradient(135deg, var(--crimson) 0%, var(--ember) 100%);
+      color: var(--parchment);
+      border: 1px solid var(--ember);
+    }
+
+    .btn-fire:hover { background: linear-gradient(135deg, var(--crimson2) 0%, var(--sunfire) 100%); }
 
     .btn-gold {
-      background: var(--gold);
-      color: var(--dark);
-      border: 2px solid var(--gold2);
+      background: linear-gradient(135deg, var(--ember) 0%, var(--crown) 100%);
+      color: var(--forge);
+      font-weight: 800;
     }
+
+    .btn-gold:hover { background: linear-gradient(135deg, var(--sunfire) 0%, var(--crown) 100%); }
 
     .btn-outline {
       background: transparent;
-      color: var(--white);
-      border: 2px solid var(--white);
+      color: var(--text);
+      border: 1.5px solid rgba(245,232,208,0.4);
     }
+
+    .btn-outline:hover { border-color: var(--crown); color: var(--crown); }
+
+    /* ── INFO BAND ── */
+    .info-band {
+      background: linear-gradient(135deg, var(--crimson) 0%, #4a0808 100%);
+      position: relative;
+      z-index: 1;
+    }
+
+    .info-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 44px 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 36px;
+      text-align: center;
+    }
+
+    .info-item h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--crown);
+      margin-bottom: 10px;
+    }
+
+    .info-item p, .info-item a {
+      font-size: 0.98rem;
+      color: var(--parchment);
+      line-height: 1.7;
+      text-decoration: none;
+    }
+
+    .info-item a:hover { color: var(--crown); }
 
     /* ── SECTION BASE ── */
     section {
       position: relative;
-      z-index: 1;
       padding: 80px 24px;
     }
 
     .section-inner {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
     .section-title {
       font-family: 'Cinzel', serif;
       font-size: clamp(1.5rem, 4vw, 2.4rem);
-      color: var(--gold);
+      font-weight: 900;
       text-align: center;
       margin-bottom: 12px;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
     }
 
     .section-rule {
-      width: 80px;
+      width: 64px;
       height: 3px;
-      background: linear-gradient(90deg, var(--red2), var(--gold), var(--usblue));
-      margin: 0 auto 48px;
-      border-radius: 2px;
+      background: linear-gradient(90deg, var(--crimson), var(--sunfire), var(--crown));
+      margin: 0 auto 52px;
+      border-radius: 1px;
     }
 
-    /* ── INFO BAND ── */
-    .info-band {
-      background: linear-gradient(135deg, var(--red) 0%, #5a0e0e 100%);
-      border-top: 3px solid var(--gold);
-      border-bottom: 3px solid var(--gold);
+    /* ── STORE FRONT ── */
+    .storefront-section {
+      background: linear-gradient(180deg, var(--forge) 0%, var(--forge2) 100%);
     }
 
-    .info-grid {
+    .storefront-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 40px;
-      text-align: center;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 56px;
+      align-items: center;
     }
 
-    .info-item h3 {
+    .storefront-img {
+      width: 100%;
+      border-radius: 4px;
+      border: 2px solid var(--ember);
+      object-fit: cover;
+      max-height: 440px;
+      box-shadow: 0 12px 48px rgba(122, 16, 16, 0.4), 0 0 0 6px rgba(200, 131, 10, 0.08);
+    }
+
+    .storefront-text h3 {
       font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.15em;
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+    }
+
+    .storefront-text p {
+      color: rgba(245,232,208,0.78);
+      line-height: 1.9;
+      font-size: 0.97rem;
+      margin-bottom: 22px;
+    }
+
+    /* ── JACKPOT ── */
+    .jackpot-section {
+      background:
+        radial-gradient(ellipse at 60% 50%, rgba(122,16,16,0.55) 0%, transparent 70%),
+        linear-gradient(180deg, var(--forge2) 0%, #1f0505 100%);
+    }
+
+    .jackpot-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .jackpot-img {
+      width: 100%;
+      border-radius: 4px;
+      border: 2px solid var(--sunfire);
+      object-fit: cover;
+      max-height: 480px;
+      box-shadow:
+        0 0 0 6px rgba(245,192,48,0.08),
+        0 16px 64px rgba(200,131,10,0.35);
+    }
+
+    .jackpot-eyebrow {
+      display: inline-block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--gold2);
-      margin-bottom: 10px;
+      color: var(--crown);
+      border: 1px solid var(--ember);
+      padding: 5px 16px;
+      border-radius: 1px;
+      margin-bottom: 22px;
     }
 
-    .info-item p, .info-item a {
-      font-size: 1rem;
-      color: var(--white);
-      line-height: 1.7;
-      text-decoration: none;
+    .jackpot-content h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 6px;
     }
 
-    .info-item a:hover { color: var(--gold2); }
+    .prize-line {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      margin: 8px 0 24px;
+      text-shadow: 0 0 40px rgba(245,192,48,0.4);
+    }
+
+    .jackpot-content p {
+      color: rgba(245,232,208,0.8);
+      line-height: 1.85;
+      font-size: 0.97rem;
+      margin-bottom: 14px;
+    }
+
+    .jackpot-steps {
+      list-style: none;
+      margin: 24px 0 30px;
+      border-top: 1px solid rgba(200,131,10,0.2);
+    }
+
+    .jackpot-steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(200,131,10,0.15);
+      font-size: 0.95rem;
+      color: rgba(245,232,208,0.82);
+      line-height: 1.5;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      background: linear-gradient(135deg, var(--ember), var(--crown));
+      color: var(--forge);
+      font-weight: 800;
+      font-size: 0.8rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .draw-date {
+      display: inline-block;
+      background: var(--crimson);
+      color: var(--parchment);
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 10px 28px;
+      border: 1px solid var(--ember);
+      margin-bottom: 24px;
+    }
+
+    /* ── PRODUCTS ── */
+    .products-section {
+      background: var(--forge);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+    }
+
+    .product-card {
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid rgba(200,131,10,0.18);
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+      background: #120808;
+    }
+
+    .product-card::after {
+      content: '🔍';
+      position: absolute;
+      inset: 0;
+      background: rgba(122,16,16,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .product-card:hover {
+      border-color: var(--sunfire);
+      box-shadow: 0 8px 32px rgba(200,131,10,0.3);
+      transform: translateY(-3px);
+    }
+
+    .product-card:hover::after { opacity: 1; }
+
+    .product-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+    }
+
+    .products-note {
+      text-align: center;
+      margin-top: 28px;
+      color: rgba(245,232,208,0.4);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(8,3,3,0.95);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border: 2px solid var(--ember);
+      border-radius: 2px;
+      box-shadow: 0 0 60px rgba(200,131,10,0.3);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 22px;
+      right: 30px;
+      font-size: 1.8rem;
+      color: var(--crown);
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      opacity: 0.8;
+      transition: opacity 0.15s;
+    }
+
+    .lightbox-close:hover { opacity: 1; }
 
     /* ── HOURS ── */
-    .hours-section { background: rgba(27, 47, 110, 0.15); }
+    .hours-section {
+      background: linear-gradient(180deg, var(--forge2) 0%, var(--forge) 100%);
+    }
 
     .hours-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 32px;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
       align-items: start;
     }
 
@@ -272,263 +505,130 @@
     }
 
     .hours-table tr {
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(245,232,208,0.07);
     }
 
     .hours-table td {
-      padding: 10px 0;
+      padding: 11px 0;
       font-size: 0.95rem;
+      color: rgba(245,232,208,0.8);
     }
 
     .hours-table td:last-child {
       text-align: right;
-      color: var(--gold2);
+      color: var(--crown);
       font-weight: 600;
     }
 
     .open-badge {
       display: inline-block;
-      background: #1a7a1a;
-      color: #fff;
-      font-size: 0.75rem;
+      background: #145214;
+      color: #a8e6a8;
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      padding: 4px 12px;
+      padding: 5px 14px;
       border-radius: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
-    /* ── PRODUCTS ── */
-    .products-section { background: rgba(139,26,26,0.1); }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
+    .hours-callout {
+      padding: 28px;
+      background: rgba(122,16,16,0.15);
+      border: 1px solid rgba(200,131,10,0.22);
+      border-radius: 3px;
     }
 
-    .product-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(245,168,0,0.25);
-      border-radius: 6px;
-      padding: 28px 20px;
-      text-align: center;
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .product-card:hover {
-      border-color: var(--gold);
-      background: rgba(245,168,0,0.07);
-    }
-
-    .product-icon {
-      font-size: 2.4rem;
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .product-card h3 {
+    .hours-callout h3 {
       font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
-      color: var(--gold);
-      margin-bottom: 8px;
+      color: var(--sunfire);
+      margin-bottom: 14px;
+      font-size: 1.05rem;
     }
 
-    .product-card p {
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.5;
+    .hours-callout p {
+      color: rgba(245,232,208,0.72);
+      line-height: 1.85;
+      font-size: 0.94rem;
     }
 
-    /* ── MAP / LOCATION ── */
-    .location-section { background: rgba(17,17,17,0.6); }
+    /* ── LOCATION ── */
+    .location-section {
+      background: var(--forge2);
+    }
 
     .location-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      gap: 48px;
       align-items: center;
     }
 
     .map-embed {
-      border-radius: 6px;
+      border-radius: 3px;
       overflow: hidden;
-      border: 2px solid var(--gold);
-      height: 300px;
+      border: 2px solid var(--ember);
+      height: 320px;
+      box-shadow: 0 0 0 6px rgba(200,131,10,0.06);
     }
 
     .map-embed iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
+      width: 100%; height: 100%;
+      border: none; display: block;
     }
 
     .location-details h3 {
       font-family: 'Cinzel', serif;
-      color: var(--gold);
-      margin-bottom: 12px;
-      font-size: 1.1rem;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
     }
 
     .location-details p {
-      color: rgba(255,255,255,0.8);
-      line-height: 1.8;
-      margin-bottom: 20px;
+      color: rgba(245,232,208,0.78);
+      line-height: 1.85;
+      margin-bottom: 24px;
+      font-size: 0.97rem;
     }
 
-    .location-details a {
-      color: var(--gold2);
-      text-decoration: none;
-    }
+    .location-details a { color: var(--crown); text-decoration: none; }
+    .location-details a:hover { color: var(--sunfire); }
 
     /* ── FOOTER ── */
     footer {
-      position: relative;
-      z-index: 1;
-      background: #0a0a0a;
-      border-top: 3px solid var(--gold);
+      background: #080303;
+      border-top: 4px solid var(--ember);
       text-align: center;
-      padding: 36px 24px;
+      padding: 44px 24px;
     }
 
+    .footer-inner { max-width: 480px; margin: 0 auto; }
+
     footer .foot-logo {
-      height: 52px;
-      margin-bottom: 16px;
-      opacity: 0.85;
+      height: 48px;
+      margin-bottom: 18px;
+      opacity: 0.9;
     }
 
     footer p {
       font-size: 0.8rem;
-      color: rgba(255,255,255,0.4);
-      line-height: 1.8;
-    }
-
-    .usa-flag-bar {
-      display: flex;
-      height: 5px;
-      margin-bottom: 28px;
-    }
-
-    .usa-flag-bar span {
-      flex: 1;
-    }
-
-    /* ── SPARKLE ANIMATION ── */
-    @keyframes sparkle {
-      0%, 100% { opacity: 0; transform: scale(0.5); }
-      50% { opacity: 1; transform: scale(1.2); }
-    }
-
-    .sparkle {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--gold2);
-      animation: sparkle 2s infinite;
-      pointer-events: none;
-    }
-
-    .sparkle:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
-    .sparkle:nth-child(2) { top: 35%; right: 10%; animation-delay: 0.4s; }
-    .sparkle:nth-child(3) { top: 60%; left: 8%; animation-delay: 0.8s; background: #fff; }
-    .sparkle:nth-child(4) { top: 75%; right: 15%; animation-delay: 1.2s; }
-    .sparkle:nth-child(5) { top: 50%; left: 50%; animation-delay: 1.6s; background: var(--red2); }
-
-    /* ── THANK YOU BANNER ── */
-    .thankyou-banner {
-      background: linear-gradient(135deg, var(--usblue) 0%, #0f1e4a 100%);
-      border-top: 3px solid var(--gold);
-      border-bottom: 3px solid var(--gold);
-      text-align: center;
-      padding: 40px 24px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .thankyou-banner p {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(0.95rem, 2.2vw, 1.25rem);
-      color: var(--offwhite);
-      max-width: 780px;
-      margin: 0 auto;
+      color: rgba(245,232,208,0.35);
       line-height: 1.9;
     }
 
-    .thankyou-banner .highlight {
-      color: var(--gold2);
-      font-weight: 700;
-    }
-
-    /* ── WINNER SECTION ── */
-    .winner-section { background: rgba(139,26,26,0.18); }
-
-    .winner-card {
-      max-width: 680px;
-      margin: 0 auto;
-      background: rgba(255,255,255,0.04);
-      border: 2px solid var(--gold);
-      border-radius: 8px;
-      overflow: hidden;
-      text-align: center;
-    }
-
-    .winner-badge {
-      background: linear-gradient(90deg, var(--red2), var(--gold), var(--red2));
-      padding: 14px 24px;
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      color: var(--dark);
-      text-transform: uppercase;
-    }
-
-    .winner-card img {
-      width: 100%;
-      max-height: 700px;
-      object-fit: contain;
-      background: #111;
-      display: block;
-    }
-
-    .winner-caption {
-      padding: 24px;
-    }
-
-    .winner-caption h3 {
-      font-family: 'Cinzel', serif;
-      color: var(--gold);
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-
-    .winner-caption p {
-      color: rgba(255,255,255,0.75);
-      font-size: 0.95rem;
-      line-height: 1.7;
-    }
-
-    .prize-tag {
-      display: inline-block;
-      margin-top: 14px;
-      background: var(--gold);
-      color: var(--dark);
-      font-weight: 700;
-      font-size: 0.95rem;
-      padding: 8px 20px;
-      border-radius: 4px;
-      letter-spacing: 0.05em;
-    }
+    footer a { color: var(--ember); text-decoration: none; }
+    footer a:hover { color: var(--crown); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 680px) {
+    @media (max-width: 760px) {
       nav { padding: 10px 16px; }
       .nav-links { display: none; }
-      .location-grid { grid-template-columns: 1fr; }
+      .storefront-grid,
+      .jackpot-inner,
+      .location-grid,
+      .hours-grid { grid-template-columns: 1fr; }
       .map-embed { height: 240px; }
+      .jackpot-img, .storefront-img { max-height: 280px; }
     }
   </style>
 </head>
@@ -537,10 +637,10 @@
   <!-- NAV -->
   <nav>
     <div class="nav-logo">
-      <img src="logo.png" alt="Dragon Fireworks Logo" />
+      <img src="logo.png" alt="Dragon Fireworks" />
     </div>
     <ul class="nav-links">
-      <li><a href="#winner">🏆 Winner</a></li>
+      <li><a href="#jackpot">🎰 Jackpot Event</a></li>
       <li><a href="#products">Products</a></li>
       <li><a href="#hours">Hours</a></li>
       <li><a href="#location">Location</a></li>
@@ -548,155 +648,192 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="usa-stripe"></div>
+  <!-- HERO: cream zone for banner, fades to dark -->
+  <div class="hero-cream">
+    <img src="pictures/store%20name.png" alt="Dragon Fireworks" class="hero-banner" />
+    <div class="hero-transition"></div>
+  </div>
 
-    <!-- Sparkles -->
-    <div class="sparkle"></div>
-    <div class="sparkle"></div>
-    <div class="sparkle"></div>
-    <div class="sparkle"></div>
-    <div class="sparkle"></div>
-
-    <!-- Burst SVG decorations -->
-    <svg class="burst burst-1" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g stroke="#F5A800" stroke-width="2">
-        <line x1="100" y1="10" x2="100" y2="190"/>
-        <line x1="10" y1="100" x2="190" y2="100"/>
-        <line x1="29" y1="29" x2="171" y2="171"/>
-        <line x1="171" y1="29" x2="29" y2="171"/>
-        <line x1="10" y1="60" x2="190" y2="140"/>
-        <line x1="60" y1="10" x2="140" y2="190"/>
-        <line x1="190" y1="60" x2="10" y2="140"/>
-        <line x1="140" y1="10" x2="60" y2="190"/>
-        <circle cx="100" cy="100" r="8" fill="#F5A800"/>
-      </g>
-    </svg>
-    <svg class="burst burst-2" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g stroke="#B22222" stroke-width="2">
-        <line x1="100" y1="10" x2="100" y2="190"/>
-        <line x1="10" y1="100" x2="190" y2="100"/>
-        <line x1="29" y1="29" x2="171" y2="171"/>
-        <line x1="171" y1="29" x2="29" y2="171"/>
-        <line x1="10" y1="60" x2="190" y2="140"/>
-        <line x1="60" y1="10" x2="140" y2="190"/>
-        <circle cx="100" cy="100" r="8" fill="#B22222"/>
-      </g>
-    </svg>
-    <svg class="burst burst-3" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g stroke="#1B2F6E" stroke-width="2">
-        <line x1="100" y1="10" x2="100" y2="190"/>
-        <line x1="10" y1="100" x2="190" y2="100"/>
-        <line x1="29" y1="29" x2="171" y2="171"/>
-        <line x1="171" y1="29" x2="29" y2="171"/>
-        <circle cx="100" cy="100" r="8" fill="#1B2F6E"/>
-      </g>
-    </svg>
-
-    <img src="logo.png" alt="Dragon Fireworks" class="hero-logo" />
-    <h1>Light Up the Sky</h1>
-    <p class="hero-sub">Greensburg's fireworks destination — aerials, fountains, sparklers, Roman candles & celebration packs for every occasion.</p>
+  <div class="hero-dark">
+    <p class="tagline">Greensburg, Indiana · Fireworks for Every Occasion</p>
+    <p class="sub">Aerials, fountains, sparklers, Roman candles &amp; celebration packs — everything you need to light up the sky.</p>
     <div class="hero-cta">
-      <a href="#products" class="btn btn-gold">Shop Categories</a>
+      <a href="#jackpot" class="btn btn-gold">🎰 July 4th Jackpot — Win $1,000!</a>
+      <a href="#products" class="btn btn-fire">Browse Products</a>
       <a href="#location" class="btn btn-outline">Find Us</a>
     </div>
-  </section>
-
-  <!-- THANK YOU BANNER -->
-  <div class="thankyou-banner">
-    <p>
-      We would like to sincerely thank all of our customers for your wonderful patronage and loyal support.<br/>
-      To all of our current and future customers —<br/>
-      <span class="highlight">we wish you a meaningful 250th Independence Day and a joyful 4th of July! 🎆🇺🇸</span>
-    </p>
   </div>
+
+  <div class="fire-band"></div>
 
   <!-- INFO BAND -->
   <div class="info-band">
-    <div class="section-inner" style="padding: 48px 24px;">
-      <div class="info-grid">
-        <div class="info-item">
-          <h3>📍 Address</h3>
-          <p>1206 W Main St<br/>Greensburg, IN 47240</p>
-        </div>
-        <div class="info-item">
-          <h3>📞 Phone</h3>
-          <a href="tel:5202300040"><p>(520) 230-0040</p></a>
-        </div>
-        <div class="info-item">
-          <h3>🕙 Today's Hours</h3>
-          <p>10:00 AM – 10:00 PM</p>
-        </div>
-        <div class="info-item">
-          <h3>🗓️ Open</h3>
-          <p>Monday – Sunday<br/>Every Day</p>
-        </div>
+    <div class="info-grid">
+      <div class="info-item">
+        <h3>📍 Address</h3>
+        <p>1206 W Main St<br/>Greensburg, IN 47240</p>
+      </div>
+      <div class="info-item">
+        <h3>📞 Phone</h3>
+        <a href="tel:5202300040"><p>(520) 230-0040</p></a>
+      </div>
+      <div class="info-item">
+        <h3>🕙 Today's Hours</h3>
+        <p>10:00 AM – 10:00 PM</p>
+      </div>
+      <div class="info-item">
+        <h3>🗓️ Open</h3>
+        <p>Monday – Sunday<br/>Every Day</p>
       </div>
     </div>
   </div>
 
-  <!-- WINNER -->
-  <section class="winner-section" id="winner">
+  <div class="fire-band"></div>
+
+  <!-- STORE FRONT -->
+  <section class="storefront-section" id="about">
     <div class="section-inner">
-      <h2 class="section-title">🏆 July 4th Lottery Winner</h2>
+      <h2 class="section-title gold-text">Visit Our Store</h2>
       <div class="section-rule"></div>
-      <div class="winner-card">
-        <div class="winner-badge">🎉 Congratulations to Our Lucky Winner! 🎉</div>
-        <img src="pictures/winner.jpg" alt="July 4th Lottery Winner" />
-        <div class="winner-caption">
-          <h3>July 4th Giveaway Winner</h3>
-          <p>Dragon Fireworks is thrilled to announce our July 4th lottery winner! Thank you to everyone who participated and made this celebration special. We appreciate every single one of our customers.</p>
-          <div class="prize-tag">🎆 Prize Value: $1,700 in Fireworks Products</div>
+      <div class="storefront-grid">
+        <img src="pictures/store%20front.jpg" alt="Dragon Fireworks Store Front" class="storefront-img" />
+        <div class="storefront-text">
+          <h3 class="gold-text">Your Local Fireworks Experts</h3>
+          <p>
+            Welcome to Dragon Fireworks in Greensburg, Indiana! We carry a massive selection of
+            professional-grade fireworks for all occasions — 4th of July, New Year's Eve, weddings,
+            graduation parties, and everything in between.
+          </p>
+          <p>
+            Stop by and let our team help you find exactly what you need, from big aerial shells to fun
+            novelties and sparklers. We stock fresh inventory every season.
+          </p>
+          <a href="#products" class="btn btn-gold" style="margin-right:12px;">See Our Products</a>
+          <a href="#location" class="btn btn-fire">Get Directions</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PRODUCTS -->
-  <section class="products-section" id="products">
+  <div class="fire-band"></div>
+
+  <!-- JACKPOT EVENT -->
+  <section class="jackpot-section" id="jackpot">
     <div class="section-inner">
-      <h2 class="section-title">Our Products</h2>
+      <h2 class="section-title gold-text">🎰 July 4th Jackpot Giveaway</h2>
       <div class="section-rule"></div>
-      <div class="products-grid">
-        <div class="product-card">
-          <span class="product-icon">🎆</span>
-          <h3>Aerials</h3>
-          <p>Multi-shot cakes, artillery shells & sky-filling displays</p>
-        </div>
-        <div class="product-card">
-          <span class="product-icon">⛲</span>
-          <h3>Fountains</h3>
-          <p>Ground fountains with color-changing sparks & crackle effects</p>
-        </div>
-        <div class="product-card">
-          <span class="product-icon">✨</span>
-          <h3>Sparklers</h3>
-          <p>Gold & colored sparklers — perfect for photos & celebrations</p>
-        </div>
-        <div class="product-card">
-          <span class="product-icon">🕯️</span>
-          <h3>Roman Candles</h3>
-          <p>Single & multi-ball candles in vivid colors</p>
-        </div>
-        <div class="product-card">
-          <span class="product-icon">🎉</span>
-          <h3>Celebration Packs</h3>
-          <p>Ready-to-go assortments for 4th of July, New Year's & more</p>
-        </div>
-        <div class="product-card">
-          <span class="product-icon">🔥</span>
-          <h3>More In Store</h3>
-          <p>Visit us for our full selection — new items arriving seasonally</p>
+      <div class="jackpot-inner">
+        <img src="pictures/jackpot.jpg" alt="$1,000 Jackpot Prize — All Products Shown" class="jackpot-img" />
+        <div class="jackpot-content">
+          <span class="jackpot-eyebrow">Limited Time · 2026 Event</span>
+          <h2 class="gold-text">Win It All —</h2>
+          <div class="prize-line gold-text">$1,000 FREE</div>
+          <p>
+            Spend <strong style="color:var(--crown);">$100 or more</strong> in a single visit and you'll
+            receive a lottery ticket for a chance to win <strong>every product shown in the photo</strong>
+            — valued at over <strong style="color:var(--crown);">$1,000</strong> — completely free!
+          </p>
+          <ul class="jackpot-steps">
+            <li>
+              <span class="step-num">1</span>
+              <span>Shop and spend <strong>$100 or more</strong> in one visit at Dragon Fireworks.</span>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <span>Get your <strong>lottery ticket</strong> at checkout — one ticket per $100 spent.</span>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <span>The winning ticket is drawn on <strong>July 4th</strong>. Winner takes everything home!</span>
+            </li>
+          </ul>
+          <div class="draw-date">🎆 Drawing: July 4th, 2026</div>
+          <br/>
+          <a href="#location" class="btn btn-gold">Come Shop Now</a>
         </div>
       </div>
     </div>
   </section>
+
+  <div class="fire-band"></div>
+
+  <!-- PRODUCTS GALLERY -->
+  <section class="products-section" id="products">
+    <div class="section-inner">
+      <h2 class="section-title gold-text">Our Products</h2>
+      <div class="section-rule"></div>
+      <div class="products-grid">
+        <div class="product-card" onclick="openLightbox('pictures/1000008951.jpg')">
+          <img src="pictures/1000008951.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008952.jpg')">
+          <img src="pictures/1000008952.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008953.jpg')">
+          <img src="pictures/1000008953.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008954.jpg')">
+          <img src="pictures/1000008954.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008955.jpg')">
+          <img src="pictures/1000008955.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008956.jpg')">
+          <img src="pictures/1000008956.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008957.jpg')">
+          <img src="pictures/1000008957.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008958.jpg')">
+          <img src="pictures/1000008958.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008959.jpg')">
+          <img src="pictures/1000008959.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008960.jpg')">
+          <img src="pictures/1000008960.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008961.jpg')">
+          <img src="pictures/1000008961.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008962.jpg')">
+          <img src="pictures/1000008962.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008963.jpg')">
+          <img src="pictures/1000008963.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008964.jpg')">
+          <img src="pictures/1000008964.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008965.jpg')">
+          <img src="pictures/1000008965.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008966.jpg')">
+          <img src="pictures/1000008966.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008967.jpg')">
+          <img src="pictures/1000008967.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+        <div class="product-card" onclick="openLightbox('pictures/1000008970.jpg')">
+          <img src="pictures/1000008970.jpg" alt="Firework Product" loading="lazy" />
+        </div>
+      </div>
+      <p class="products-note">Click any photo to view full size · More products available in store</p>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="Product" onclick="event.stopPropagation()" />
+  </div>
+
+  <div class="fire-band"></div>
 
   <!-- HOURS -->
   <section class="hours-section" id="hours">
     <div class="section-inner">
-      <h2 class="section-title">Store Hours</h2>
+      <h2 class="section-title gold-text">Store Hours</h2>
       <div class="section-rule"></div>
       <div class="hours-grid">
         <div>
@@ -711,13 +848,13 @@
             <tr><td>Sunday</td><td>10:00 AM – 10:00 PM</td></tr>
           </table>
         </div>
-        <div style="padding: 20px; background: rgba(245,168,0,0.07); border: 1px solid rgba(245,168,0,0.2); border-radius: 6px;">
-          <h3 style="font-family:'Cinzel',serif; color:var(--gold); margin-bottom:12px;">🎇 Peak Season</h3>
-          <p style="color:rgba(255,255,255,0.75); line-height:1.8; font-size:0.95rem;">
-            Extended hours during peak holidays — July 4th and New Year's Eve. Call ahead or check back here for updated seasonal hours.
+        <div class="hours-callout">
+          <h3>🎇 Peak Season Hours</h3>
+          <p>
+            Extended hours during peak holidays — July 4th and New Year's Eve. Call ahead for updated seasonal hours.
           </p>
           <br/>
-          <a href="tel:5202300040" class="btn btn-gold" style="display:inline-block; margin-top:8px; font-size:0.85rem; padding:10px 22px;">
+          <a href="tel:5202300040" class="btn btn-gold" style="font-size:0.85rem; padding:10px 22px;">
             📞 Call Us
           </a>
         </div>
@@ -725,28 +862,29 @@
     </div>
   </section>
 
+  <div class="fire-band"></div>
+
   <!-- LOCATION -->
   <section class="location-section" id="location">
     <div class="section-inner">
-      <h2 class="section-title">Find Us</h2>
+      <h2 class="section-title gold-text">Find Us</h2>
       <div class="section-rule"></div>
       <div class="location-grid">
         <div class="map-embed">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3088.0!2d-85.4974!3d39.3378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s1206+W+Main+St%2C+Greensburg%2C+IN+47240!5e0!3m2!1sen!2sus!4v1"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </div>
         <div class="location-details">
-          <h3>Dragon Fireworks</h3>
+          <h3 class="gold-text">Dragon Fireworks</h3>
           <p>
             1206 W Main St<br/>
             Greensburg, IN 47240<br/><br/>
             <a href="tel:5202300040">(520) 230-0040</a>
           </p>
-          <a href="https://maps.google.com/?q=1206+W+Main+St,+Greensburg,+IN+47240" target="_blank" class="btn btn-gold" style="font-size:0.85rem; padding:10px 22px;">
+          <a href="https://maps.google.com/?q=1206+W+Main+St,+Greensburg,+IN+47240"
+             target="_blank" class="btn btn-gold" style="font-size:0.85rem; padding:11px 24px;">
             🗺️ Get Directions
           </a>
         </div>
@@ -756,20 +894,26 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="usa-flag-bar">
-      <span style="background:var(--red2);"></span>
-      <span style="background:var(--white);"></span>
-      <span style="background:var(--usblue);"></span>
-      <span style="background:var(--red2);"></span>
-      <span style="background:var(--white);"></span>
-      <span style="background:var(--usblue);"></span>
+    <div class="footer-inner">
+      <img src="logo.png" alt="Dragon Fireworks" class="foot-logo" />
+      <p>
+        © 2025 Dragon Fireworks · 1206 W Main St, Greensburg, IN 47240<br/>
+        <a href="tel:5202300040">(520) 230-0040</a>
+      </p>
     </div>
-    <img src="logo.png" alt="Dragon Fireworks" class="foot-logo" />
-    <p>
-      © 2025 Dragon Fireworks · 1206 W Main St, Greensburg, IN 47240<br/>
-      <a href="tel:5202300040" style="color:var(--gold2); text-decoration:none;">(520) 230-0040</a>
-    </p>
   </footer>
+
+  <script>
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('open');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.getElementById('lightbox-img').src = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
 
 </body>
 </html>
