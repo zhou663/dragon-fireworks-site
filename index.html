@@ -619,12 +619,80 @@
     footer a { color: var(--ember); text-decoration: none; }
     footer a:hover { color: var(--crown); }
 
+    /* ── WINNER ── */
+    .winner-section {
+      background:
+        radial-gradient(ellipse at 40% 50%, rgba(122,16,16,0.45) 0%, transparent 70%),
+        linear-gradient(180deg, var(--forge) 0%, var(--forge2) 100%);
+    }
+
+    .winner-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .winner-img {
+      width: 100%;
+      border-radius: 4px;
+      border: 2px solid var(--sunfire);
+      object-fit: contain;
+      max-height: 560px;
+      background: #0d0808;
+      box-shadow:
+        0 0 0 6px rgba(245,192,48,0.08),
+        0 16px 64px rgba(200,131,10,0.35);
+    }
+
+    .winner-eyebrow {
+      display: inline-block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--crown);
+      border: 1px solid var(--ember);
+      padding: 5px 16px;
+      border-radius: 1px;
+      margin-bottom: 22px;
+    }
+
+    .winner-content h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+
+    .winner-content p {
+      color: rgba(245,232,208,0.8);
+      line-height: 1.85;
+      font-size: 0.97rem;
+      margin-bottom: 14px;
+    }
+
+    .winner-prize {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--crimson) 0%, var(--ember) 100%);
+      color: var(--parchment);
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 11px 28px;
+      border: 1px solid var(--sunfire);
+      margin-top: 10px;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 760px) {
       nav { padding: 10px 16px; }
       .nav-links { display: none; }
       .storefront-grid,
       .jackpot-inner,
+      .winner-inner,
       .location-grid,
       .hours-grid { grid-template-columns: 1fr; }
       .map-embed { height: 240px; }
@@ -641,6 +709,7 @@
     </div>
     <ul class="nav-links">
       <li><a href="#jackpot">🎰 Jackpot Event</a></li>
+      <li><a href="#winner">🏆 Winner</a></li>
       <li><a href="#products">Products</a></li>
       <li><a href="#hours">Hours</a></li>
       <li><a href="#location">Location</a></li>
@@ -662,6 +731,21 @@
       <a href="#products" class="btn btn-fire">Browse Products</a>
       <a href="#location" class="btn btn-outline">Find Us</a>
     </div>
+    <p style="
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.88rem, 1.8vw, 1.05rem);
+      color: var(--crown);
+      max-width: 680px;
+      line-height: 2;
+      margin-top: 36px;
+      border-top: 1px solid rgba(200,131,10,0.25);
+      padding-top: 28px;
+      letter-spacing: 0.03em;
+      text-align: center;
+    ">
+      We would like to sincerely thank all of our customers for your wonderful patronage and loyal support.<br/>
+      To all of our current and future customers — we wish you a meaningful <strong style="color:var(--parchment);">250th Independence Day</strong> and a joyful <strong style="color:var(--parchment);">4th of July!</strong> 🎆🇺🇸
+    </p>
   </div>
 
   <div class="fire-band"></div>
@@ -750,6 +834,32 @@
           <div class="draw-date">🎆 Drawing: July 4th, 2026</div>
           <br/>
           <a href="#location" class="btn btn-gold">Come Shop Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="fire-band"></div>
+
+  <!-- WINNER -->
+  <section class="winner-section" id="winner">
+    <div class="section-inner">
+      <h2 class="section-title gold-text">🏆 July 4th Lottery Winner</h2>
+      <div class="section-rule"></div>
+      <div class="winner-inner">
+        <img src="pictures/winner.jpg" alt="July 4th Lottery Winner" class="winner-img" />
+        <div class="winner-content">
+          <span class="winner-eyebrow">🎉 July 4th, 2026 · Grand Prize Winner</span>
+          <h2 class="gold-text">Congratulations to Our Lucky Winner!</h2>
+          <p>
+            Dragon Fireworks is thrilled to announce our July 4th lottery winner!
+            Thank you to everyone who participated, purchased tickets, and made this celebration so special.
+            We are grateful for each and every one of our customers.
+          </p>
+          <p>
+            The winner takes home a massive collection of fireworks products — the grand prize of this year's jackpot giveaway.
+          </p>
+          <div class="winner-prize">🎆 Prize Value: $1,700 in Fireworks Products</div>
         </div>
       </div>
     </div>
